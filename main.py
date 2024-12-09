@@ -1,3 +1,4 @@
+from mapbook.map_functions import single_user_map, multi_user_map
 from mapbook.users import users
 from mapbook.crud import hello, read_users, add_user, remove_user, update_user
 
@@ -25,13 +26,12 @@ while True:
     if menu_option == "2":
         read_users(users)
     if menu_option == "3":
-        update_user(users)
     if menu_option == "4":
         remove_user(users)
     if menu_option == "5":
-        pass
+        single_user_map(users)
     if menu_option == "6":
-        pass
+        multi_user_map(users)
 
 
 if __name__ == '__main__':
