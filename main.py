@@ -52,6 +52,42 @@ def main():
         show_users()
 
 
+    def edit_user()->None:
+        i = listbox_lista_obiektow.index(ACTIVE)
+        entry_imie.insert(0, users[i].imie)
+        entry_nazwisko.insert(0, users[i].nazwisko)
+        entry_liczba_postow.insert(0, users[i].postow)
+        entry_lokalizacja.insert(0, users[i].lokalizacja)
+
+        button_dodaj_obiekt.config(text = 'Zapisz zmiany', command = lambda:update_user(i))
+
+
+
+    def update_user(i)->None:
+
+        users[i].imie = entry_imie.get()
+        users[i].nazwisko = entry_nazwisko.get()
+        users[i].postow = entry_liczba_postow.get()
+        users[i].lokalizacja = entry_lokalizacja.get()
+        entry_imie.delete(0, END)
+        entry_nazwisko.delete(0, END)
+        entry_liczba_postow.delete(0, END)
+        entry_lokalizacja.delete(0, END)
+        entry_imie.focus()
+
+        button_dodaj_obiekt.config(text = "Dodaj obiekt", command = add_user)
+
+        show_users()
+
+
+    def show_user_details()->None:
+        i = listbox_lista_obiektow.index(ACTIVE)
+        label_szczegoly_imie_wartosc.config(text = f'{users[i].imie}')
+        label_szczegoly_nazwisko_wartosc.config(text = f'{users[i].nazwisko}')
+        label_szczegoly_posty_wartosc.config(text = f'{users[i].postow}')
+        label_szczegoly_lokalizacja_wartosc.config(text = f'{users[i].lokalizacja}')
+
+
 
     root = Tk()
     root.geometry("1100x800")
@@ -73,11 +109,11 @@ def main():
     label_lista_obiektow.grid(row=0, column=0, columnspan=3)
     listbox_lista_obiektow = Listbox(ramka_lista_obiektow, width=50)
     listbox_lista_obiektow.grid(row=1, column=0, columnspan=3)
-    button_pokaz_szczegoly = Button(ramka_lista_obiektow, text = "Pokaż szczegóły", command=lambda: print("AAA"))
+    button_pokaz_szczegoly = Button(ramka_lista_obiektow, text = "Pokaż szczegóły", command= show_user_details)
     button_pokaz_szczegoly.grid(row=2, column=0)
     button_usun_obiekt = Button(ramka_lista_obiektow, text = "Usuń obiekt", command = delete_user)
     button_usun_obiekt.grid(row=2, column=1)
-    button_edytuj_obiekt = Button(ramka_lista_obiektow, text = "Edytuj obiekt")
+    button_edytuj_obiekt = Button(ramka_lista_obiektow, text = "Edytuj obiekt", command = edit_user)
     button_edytuj_obiekt.grid(row=2, column=2)
 
     # obiekty wewnątrz formularza
